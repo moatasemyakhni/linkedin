@@ -1,15 +1,16 @@
 const express = require('express');
+require('./config/db.config');
+require('dotenv').config();
 
 const app = express();
-
 app.use(express.json());
 
 
-app.listen(3000, (err) => {
+app.listen(process.env.PORT, (err) => {
     if(err) {
         console.error(err);
         return;
     }
 
-    console.log(`Server Started on port 3000`);
+    console.log(`Server Started`);
 });
