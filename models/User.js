@@ -5,13 +5,11 @@ const userSchema = new mongoose.Schema({
     first_name: {
         type: String,
         required: 'First name is required',
-        capitalize: true,
         min: 3,
     },
     last_name: {
         type: String,
         required: 'Last name is required',
-        capitalize: true,
         min: 3
     },
     email: {
@@ -49,8 +47,7 @@ const userSchema = new mongoose.Schema({
     follow_company: {
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "Company"
-    }
-    ,
+    },
     created_at: {
         type: Date,
         immutable: true,
@@ -59,7 +56,7 @@ const userSchema = new mongoose.Schema({
     updated_at: {
         type: Date,
         default: () => Date.now(),
-    }
+    },
 });
 
 const User = mongoose.model('User', userSchema);
