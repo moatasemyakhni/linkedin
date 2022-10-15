@@ -18,7 +18,7 @@ const createToken = (company) => {
         },
         process.env.JWT_SECRET_KEY,
         {
-            expiresIn: '10h',
+            expiresIn: process.env.TOKEN_EXPIRE_TIME,
         }
     );
 

@@ -1,7 +1,8 @@
 const User = require('../models/User');
+const Post = require('../models/Post');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+require('dotenv').config();
 const user_type = 'user';
 
 const createToken = (user) => {
@@ -17,7 +18,7 @@ const createToken = (user) => {
         },
         process.env.JWT_SECRET_KEY,
         {
-            expiresIn: '10h',
+            expiresIn: process.env.TOKEN_EXPIRE_TIME,
         }
     );
 
@@ -118,6 +119,19 @@ const unFollowCompany = async (req, res) => {
         user.follow_company.splice(user.follow_company.indexOf(company_id), 1);
         await user.save();
         res.send(user);
+    }catch(err) {
+        res.status(400).json({
+            message: err.message,
+        });
+    }
+}
+
+const searchForJobOffer = async (req, res) => {
+    const user_id = req.body._id;
+    try {
+    const posts = await Post
+        .find()
+        .where('');
     }catch(err) {
         res.status(400).json({
             message: err.message,
