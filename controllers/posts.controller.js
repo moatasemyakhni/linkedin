@@ -52,7 +52,8 @@ const getApplicants = async (req, res) => {
 }
 
 const searchForJobOffer = async (req, res) => {
-    const content = req.body.content;
+    const content = req.params.search;
+    console.log(content);
     try {
     const posts = await Post
         .find({'content': {$regex: `.*${content}.*`}});
