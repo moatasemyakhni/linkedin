@@ -6,13 +6,14 @@ const user_type = 'company';
 
 const createToken = (company) => {
     const token = jwt.sign({
+        name: company.name,
         email: company.email,
-        name: `${company.first_name} ${company.last_name}`,
-        profile: company.profile,
-        headline: company.headline,
-        country: company.country,
-        city: company.city,
-        phone: company.phone,
+        website: company.website,
+        industry: company.industry,
+        organizationSize: company.organizationSize,
+        type: company.type,
+        logo: company.logo,
+        tagline: company.tagline,
         user_type: user_type,
         },
         process.env.JWT_SECRET_KEY,
