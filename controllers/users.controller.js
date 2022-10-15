@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const Post = require('../models/Post');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -126,19 +125,6 @@ const unFollowCompany = async (req, res) => {
     }
 }
 
-const searchForJobOffer = async (req, res) => {
-    const content = req.body.content;
-    try {
-    const posts = await Post
-        .find({'content': content});
-        res.send(posts);
-    }catch(err) {
-        res.status(400).json({
-            message: err.message,
-        });
-    }
-}
-
 module.exports = {
     login,
     signup,
@@ -146,5 +132,4 @@ module.exports = {
     updateProfilePicture,
     followCompany,
     unFollowCompany,
-    searchForJobOffer
 }

@@ -50,8 +50,23 @@ const getApplicants = async (req, res) => {
         });
     }
 }
+
+const searchForJobOffer = async (req, res) => {
+    const content = req.body.content;
+    try {
+    const posts = await Post
+        .find({'content': {$regex: `.*${content}.*`}});
+        res.send(posts);
+    }catch(err) {
+        res.status(400).json({
+            message: err.message,
+        });
+    }
+}
+
 module.exports = {
     createPost,
     applyToPost,
-    getApplicants
+    getApplicants,
+    searchForJobOffer
 }
