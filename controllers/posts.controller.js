@@ -27,7 +27,7 @@ const applyToPost = async (req, res) => {
         const post = await Post.findById(post_id);
         post.applied_users.push(user_id);
         await post.save();
-        send.res(post);
+        res.send(post);
     }catch(err) {
         res.json({
             "message": "error",
