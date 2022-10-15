@@ -4,15 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const user_type = 'user';
 
-const login = async (req, res) => {
-    const {email, password} = req.body;
-    const user = await User.findOne({email}).select('+password');
-
-    if(!user) return res.status(404).json({message: 'Invalid Credentials'});
-
-    const checkPassword = bcrypt.compare(password, user.password);
-    if(!checkPassword) return res.status(404).json({message: 'Invalid Credentials'});
-
+const createToken = (user) => {
     const token = jwt.sign({
         email: user.email,
         name: `${user.first_name} ${user.last_name}`,
@@ -29,7 +21,20 @@ const login = async (req, res) => {
         }
     );
 
-    res.status(400).json(token);
+    return token;
+}
+
+const login = async (req, res) => {
+     
+    const {email, password} = req.body;
+    const user = await User.findOne({email}).select('+password');
+    res.status(404).json({message: user});
+    if(!user) return res.status(404).json({message: 'Invalid Credentials'});
+
+    const checkPassword = bcrypt.compare(password, user.password);
+    if(!checkPassword) return res.status(404).json({message: 'Invalid Credentials'});
+
+    res.status(400).json(createToken(user));
 }
 
 const signup = async(req, res) => {
@@ -66,7 +71,13 @@ const signup = async(req, res) => {
     }
 }
 
+const getAllUsers = async (req, res) => {
+    const allUsers = await User.find();
+    res.send(allUsers);
+}
+
 module.exports = {
     login,
     signup,
+    getAllUsers
 }
