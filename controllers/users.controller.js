@@ -30,5 +30,38 @@ const login = async (req, res) => {
     );
 
     res.status(400).json(token);
+}
 
+const signup = async(req, res) => {
+    const {
+        first_name,
+        last_name,
+        email,
+        password,
+        profile,
+        headline,
+        country,
+        city,
+        phone,
+    } = req.body;
+
+    try {
+        const user = new User();
+        user.first_name = first_name;
+        user.last_name = last_name;
+        user.email = email;
+        user.password = await bcrypt.hash(password, 10);
+        user.profile = profile;
+        user.headline = headline;
+        user.country = country;
+        user.city = city;
+        user.phone = phone;
+
+        await user.save();
+        res.status(200).json(user);
+    } catch(err) {
+        res.status(400).json({
+            message: err.message,
+        });
+    }
 }
