@@ -39,3 +39,39 @@ const login = async (req, res) => {
     }
 }
 
+const signup = async(req, res) => {
+    const {
+        name,
+        email,
+        password,
+        website,
+        industry,
+        organizationSize,
+        type,
+        logo,
+        tagline,
+    } = req.body;
+
+    try {
+        const company = new Company();
+        company.name = name;
+        company.email = email;
+        company.password = await bcrypt.hash(password, 10);
+        company.website = website;
+        company.industry = industry;
+        company.organizationSize = organizationSize;
+        company.type = type;
+        company.logo = logo;
+        company.tagline = tagline;
+
+        await company.save();
+        res.status(200).json({
+            company: company, 
+            token: createToken(company)
+        });
+    } catch(err) {
+        res.status(400).json({
+            message: err.message,
+        });
+    }
+}
