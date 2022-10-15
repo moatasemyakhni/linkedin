@@ -49,6 +49,10 @@ const companySchema = mongoose.Schema({
 
 });
 
+companySchema.path('email').validate(function(value) {
+    const exp = /^(\w([\.-]?\w)*)+@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return value.match(exp);
+}, 'Wrong email format');
 
 const Company = mongoose.model('Company', companySchema);
 module.exports = Company;
