@@ -63,7 +63,10 @@ const signup = async(req, res) => {
         user.phone = phone;
 
         await user.save();
-        res.status(200).json(user);
+        res.status(200).json({
+            user: user, 
+            token: createToken(user)
+        });
     } catch(err) {
         res.status(400).json({
             message: err.message,
