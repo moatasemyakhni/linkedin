@@ -94,6 +94,21 @@ const updateProfilePicture = async (req, res) => {
     }
 }
 
+const followCompany = async (req, res) => {
+    const user_id = req.body._id;
+    const company_id = req.body.company_id;
+    try {
+        const user = await User.findById(user_id);
+        user.follow_company.push(company_id);
+        user.save();
+        res.send(user);
+    }catch(err) {
+        res.status(400).json({
+            message: err.message,
+        });
+    }
+}
+
 module.exports = {
     login,
     signup,
