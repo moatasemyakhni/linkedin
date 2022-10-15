@@ -14,6 +14,11 @@ const companySchema = mongoose.Schema({
         unique: true,
         trim: true,
     },
+    password: {
+        type: String,
+        required: 'Password is required',
+        select: false,
+    },
     website: String,
     industry: {
         type: String,
