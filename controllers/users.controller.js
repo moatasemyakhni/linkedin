@@ -2,6 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const fs = require('fs');
 const user_type = 'user';
 
 const createToken = (user) => {
@@ -82,6 +83,7 @@ const getAllUsers = async (req, res) => {
 
 const updateProfilePicture = async (req, res) => {
     const user_id = req.body._id;
+    //in base64
     const newProfile = req.body.profile;
     try {
         const user = await User.findById(user_id);
@@ -123,6 +125,25 @@ const unFollowCompany = async (req, res) => {
             message: err.message,
         });
     }
+}
+
+const base64ToImageWithPath = (user_id, firstName, lastName, base64) => {
+    const extension = base64.split(';')[0].split('/')[1];
+    const base64Image = base64.replace(/^data:image\/png;base64,/, "");
+    const imgName = `${firstName}_${lastName}_${Date.now()}.${extension}`;
+    const path = `${process.env.IMAGE_LOCAL_PATH}/${user_id}`;
+    if(!fs.existsSync(path)) {
+        fs.mkdirSync(path);
+    }
+    const completePath = `${process.env.IMAGE_LOCAL_PATH}/${user_id}/${imgName}`;
+    fs.writeFile(completePath, base64Image, 'base64', (err) => {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        console.log("SUCCESS");
+        return completePath;
+    });
 }
 
 module.exports = {
