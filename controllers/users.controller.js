@@ -34,7 +34,7 @@ const login = async (req, res) => {
     const checkPassword = bcrypt.compare(password, user.password);
     if(!checkPassword) return res.status(404).json({message: 'Invalid Credentials'});
 
-    res.status(400).json(createToken(user));
+    res.status(400).json({token: createToken(user)});
 }
 
 const signup = async(req, res) => {
