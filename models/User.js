@@ -62,7 +62,12 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', function(next) {
     this.updated_at = Date.now();
     next();
-})
+});
+
+userSchema.path('email').validate(function(value) {
+    const exp = /^(\w([\.-]?\w)*)+@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return value.match(exp);
+}, 'Wrong email format');
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
