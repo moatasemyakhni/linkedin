@@ -114,7 +114,7 @@ const unFollowCompany = async (req, res) => {
     const company_id = req.body.company_id;
     try {
         const user = await User.findById(user_id);
-        user.follow_company.pop(company_id);
+        user.follow_company.splice(user.follow_company.indexOf(company_id), 1);
         user.save();
         res.send(user);
     }catch(err) {
