@@ -101,7 +101,7 @@ const followCompany = async (req, res) => {
     try {
         const user = await User.findById(user_id);
         user.follow_company.push(company_id);
-        user.save();
+        await user.save();
         res.send(user);
     }catch(err) {
         res.status(400).json({
@@ -116,7 +116,7 @@ const unFollowCompany = async (req, res) => {
     try {
         const user = await User.findById(user_id);
         user.follow_company.splice(user.follow_company.indexOf(company_id), 1);
-        user.save();
+        await user.save();
         res.send(user);
     }catch(err) {
         res.status(400).json({

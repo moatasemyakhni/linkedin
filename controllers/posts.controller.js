@@ -19,6 +19,22 @@ const createPost = async (req, res) => {
     }
 }
 
+const applyToPost = async (req, res) => {
+    const post_id = req.body.post_id;
+    const user_id = req.body.user_id;
+
+    try {
+        const post = await Post.findById(post_id);
+        post.applied_users.push(user_id);
+        await post.save();
+        send.res(post);
+    }catch(err) {
+        res.json({
+            "message": "error",
+            "error": err.message,
+        })
+    }
+}
 module.exports = {
     createPost,
 }
