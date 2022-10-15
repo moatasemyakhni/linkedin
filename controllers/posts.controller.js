@@ -35,7 +35,22 @@ const applyToPost = async (req, res) => {
         })
     }
 }
+
+const getApplicants = async (req, res) => {
+    try {
+        const post = await Post.find();
+        console.log(post);
+        res.send(post);
+    }catch(err) {
+        console.log(err.message);
+        res.json({
+            "message": "error",
+            "error": err.message,
+        });
+    }
+}
 module.exports = {
     createPost,
-    applyToPost
+    applyToPost,
+    getApplicants
 }
