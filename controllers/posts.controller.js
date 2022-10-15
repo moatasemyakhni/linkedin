@@ -9,3 +9,7 @@ const createPost = (req, res) => {
     post.content = content;
     post.save();
 }
+
+module.exports = {
+    createPost,
+}
