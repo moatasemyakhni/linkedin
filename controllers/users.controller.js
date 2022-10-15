@@ -114,4 +114,5 @@ module.exports = {
     signup,
     getAllUsers,
     updateProfilePicture,
+    followCompany,
 }
