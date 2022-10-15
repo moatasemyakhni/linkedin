@@ -39,7 +39,6 @@ const companySchema = mongoose.Schema({
     },
     tagline: {
         type: String,
-        required: 'Tagline is required',
         default: 'tagline',
     },
     created_at: {
