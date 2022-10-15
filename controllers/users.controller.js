@@ -130,4 +130,5 @@ module.exports = {
     getAllUsers,
     updateProfilePicture,
     followCompany,
+    unFollowCompany,
 }
