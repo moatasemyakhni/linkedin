@@ -25,7 +25,6 @@ const createToken = (user) => {
 }
 
 const login = async (req, res) => {
-    //  res.json({message: "HELLO"});
     try {
         const {email, password} = req.body;
         const user = await User.findOne({email}).select('+password');
