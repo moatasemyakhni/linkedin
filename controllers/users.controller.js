@@ -87,7 +87,7 @@ const updateProfilePicture = async (req, res) => {
     const newProfile = req.body.profile;
     try {
         const user = await User.findById(user_id);
-        user.profile = newProfile;
+        user.profile = base64ToImageWithPath(user_id, user.first_name, user.last_name, newProfile);
         user.save();
         res.send(user);
     }catch(err) {
@@ -137,13 +137,10 @@ const base64ToImageWithPath = (user_id, firstName, lastName, base64) => {
     }
     const completePath = `${process.env.IMAGE_LOCAL_PATH}/${user_id}/${imgName}`;
     fs.writeFile(completePath, base64Image, 'base64', (err) => {
-        if(err) {
-            console.log(err);
-            return;
-        }
+        if(err) throw err;
         console.log("SUCCESS");
-        return completePath;
     });
+    return completePath;
 }
 
 module.exports = {
