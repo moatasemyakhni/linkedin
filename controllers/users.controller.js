@@ -138,7 +138,6 @@ const base64ToImageWithPath = (user_id, firstName, lastName, base64) => {
     const completePath = `${process.env.IMAGE_LOCAL_PATH}/${user_id}/${imgName}`;
     fs.writeFile(completePath, base64Image, 'base64', (err) => {
         if(err) throw err;
-        console.log("SUCCESS");
     });
     return completePath;
 }
