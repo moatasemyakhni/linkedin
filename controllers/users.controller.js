@@ -25,16 +25,18 @@ const createToken = (user) => {
 }
 
 const login = async (req, res) => {
-     
-    const {email, password} = req.body;
-    const user = await User.findOne({email}).select('+password');
-    res.status(404).json({message: user});
-    if(!user) return res.status(404).json({message: 'Invalid Credentials'});
-
-    const checkPassword = bcrypt.compare(password, user.password);
-    if(!checkPassword) return res.status(404).json({message: 'Invalid Credentials'});
-
-    res.status(400).json({token: createToken(user)});
+    //  res.json({message: "HELLO"});
+    try {
+        const {email, password} = req.body;
+        const user = await User.findOne({email}).select('+password');
+        if(!user) return res.status(404).json({message: 'Invalid Credentials'});
+        const checkPassword = await bcrypt.compare(password, user.password);
+        if(!checkPassword) return res.status(404).json({message: 'Invalid Credentials'});
+    
+        res.json({token: createToken(user)});
+    }catch (err) {
+        res.status(404).json({message: 'Invalid Credentials'});
+    }
 }
 
 const signup = async(req, res) => {
