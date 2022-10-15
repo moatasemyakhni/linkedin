@@ -79,8 +79,24 @@ const getAllUsers = async (req, res) => {
     res.send(allUsers);
 }
 
+const updateProfilePicture = async (req, res) => {
+    const user_id = req.body._id;
+    const newProfile = req.body.profile;
+    try {
+        const user = await User.findById(user_id);
+        user.profile = newProfile;
+        user.save();
+        res.send(user);
+    }catch(err) {
+        res.status(400).json({
+            message: err.message,
+        });
+    }
+}
+
 module.exports = {
     login,
     signup,
-    getAllUsers
+    getAllUsers,
+    updateProfilePicture,
 }
