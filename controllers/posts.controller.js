@@ -37,12 +37,13 @@ const applyToPost = async (req, res) => {
 }
 
 const getApplicants = async (req, res) => {
+    const company_id = req.body.company_id;
     try {
-        const post = await Post.find();
-        console.log(post);
+        const post = await Post
+        .find({'company_id': company_id})
+        .populate('applied_users');
         res.send(post);
     }catch(err) {
-        console.log(err.message);
         res.json({
             "message": "error",
             "error": err.message,
