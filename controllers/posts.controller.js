@@ -37,4 +37,5 @@ const applyToPost = async (req, res) => {
 }
 module.exports = {
     createPost,
+    applyToPost
 }
