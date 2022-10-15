@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const Company = require('../models/Company');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -23,3 +23,18 @@ const createToken = (company) => {
 
     return token;
 }
+
+const login = async (req, res) => {
+    try {
+        const {email, password} = req.body;
+        const company = await Company.findOne({email}).select('+password');
+        if(!company) return res.status(404).json({message: 'Invalid Credentials'});
+        const checkPassword = await bcrypt.compare(password, company.password);
+        if(!checkPassword) return res.status(404).json({message: 'Invalid Credentials'});
+    
+        res.json({token: createToken(company)});
+    }catch (err) {
+        res.status(404).json({message: 'Invalid Credentials'});
+    }
+}
+
