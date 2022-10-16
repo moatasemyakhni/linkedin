@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {userLogin} from '../api/usersApi';
+import FormInput from './form/FormInput';
 
 const Login = ({img}) => {
     const [showEmailLabel, setShowEmailLabel] = useState(false);
@@ -38,23 +39,13 @@ const Login = ({img}) => {
         <div className='flex flex-col gap-4 md:flex-row md:gap-2'>
             <form onSubmit={login} className='flex flex-col gap-3 text-black/60 md:flex-1'>
                 <h1 className='text-3xl py-4 font-light'>Join the biggest professional community</h1>
-                <div className='flex flex-col border pl-1'>
-                    {showEmailLabel? (
-                        <label className='tex text-xs' htmlFor='email'>Email</label>
-                    ): (
-                        <label htmlFor='email' className='text-xs'>&nbsp;</label>
-                    )
-                    }
-                    <input 
-                        type='email'
-                        placeholder='Email'
-                        id='email'
-                        onFocus={() => setShowEmailLabel(true)}
-                        onBlur={(e) => hideEmailLabel(e.target.value)}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className=" outline-none h-7"
-                        />
-                </div>
+                <FormInput 
+                    showLabel={showEmailLabel}
+                    setShowLabel={setShowEmailLabel}
+                    hideLabel={hideEmailLabel}
+                    setInput={setEmail}
+                    text={"Email"}
+                    />
                 <div className='flex flex-col border pl-1'>
                     {showPasswordLabel? (
                         <label className='tex text-xs' htmlFor='password'>Password</label>

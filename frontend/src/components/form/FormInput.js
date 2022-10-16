@@ -1,20 +1,20 @@
 
-const FormInput = (props) => {
+const FormInput = ({showLabel, setShowLabel, hideLabel, setInput, text}) => {
   return (
     <div className='flex flex-col border pl-1'>
-        {props.showEmailLabel? (
-            <label className='tex text-xs' htmlFor='email'>Email</label>
+        {showLabel? (
+            <label className='tex text-xs' htmlFor={text.toLowerCase()}>{text}</label>
         ): (
-            <label htmlFor='email' className='text-xs'>&nbsp;</label>
+            <label htmlFor={text.toLowerCase()} className='text-xs'>&nbsp;</label>
         )
         }
         <input 
-            type='email'
-            placeholder='Email'
-            id='email'
-            onFocus={() => props.setShowEmailLabel(true)}
-            onBlur={(e) => props.hideEmailLabel(e.target.value)}
-            onChange={(e) => props.setEmail(e.target.value)}
+            type={text.toLowerCase()}
+            placeholder={text}
+            id={text.toLowerCase()}
+            onFocus={() => setShowLabel(true)}
+            onBlur={(e) => hideLabel(e.target.value)}
+            onChange={(e) => setInput(e.target.value)}
             className=" outline-none h-7"
             />
     </div>
