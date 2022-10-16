@@ -8,7 +8,7 @@ import Login from './components/Login';
 function App() {
   return (
     <BrowserRouter>
-      <div className='pl-3'>
+      <div className='px-3'>
           <Navbar navLogo={navLogo} at_form={true} />
           <Login img={heroImage} />
       </div>
