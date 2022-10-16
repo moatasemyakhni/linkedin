@@ -11,6 +11,7 @@ const Login = ({img}) => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isError, setIsError] = useState(false);
+    const [disable, setDisable] = useState(false);
     const navigate = useNavigate();
 
 
@@ -36,6 +37,7 @@ const Login = ({img}) => {
     }
     const login = async (e) => {
         e.preventDefault();
+        setDisable(true);
         const data = {
             email: email,
             password: password,
@@ -46,10 +48,12 @@ const Login = ({img}) => {
 
             const info = await getUserInfo(token.data.token);
             if(info.user) {
+                setDisable(false);
                 navigate('/users');
             }
         }catch(err) {
             try {
+                setDisable(true);
                 const token = await companyLogin(data);
                 localStorage.setItem('company_token', token.data.token);
     
@@ -58,6 +62,7 @@ const Login = ({img}) => {
                     navigate('/companies');
                 }
             }catch (err) {
+                setDisable(false);
                 setIsError(true);
                 setErrorMessage(err.response.data.message);
             }
@@ -95,7 +100,7 @@ const Login = ({img}) => {
                     />
                 
                 <p className='text-sm text-justify'>By clicking Agree & Join, you agree to the LinkedIn User Agreement, Privacy Policy, and Cookie Policy.</p>
-                <button className='rounded-full bg-blue-700 text-white p-4 text-xl hover:bg-blue-900'>Agree & Join</button>
+                <button disabled={disable? true: false} className={`rounded-full bg-blue-700 text-white p-4 text-xl hover:bg-blue-900 ${disable? 'cursor-wait': 'cursor-pointer'}`}>Agree & Join</button>
             </form>
             <div className='flex flex-1'>
                 <img className='md:flex-1 flex' src={img} alt="React Logo" />
