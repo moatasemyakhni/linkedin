@@ -53,6 +53,9 @@ const signup = async(req, res) => {
     } = req.body;
 
     try {
+        if(password.length < 6) {
+            throw {message: 'password should be at least 6 chars'};
+        }
         const user = new User();
         user.first_name = first_name;
         user.last_name = last_name;
