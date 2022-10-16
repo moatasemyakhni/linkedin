@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
-import navLogo from '../../assets/images/logo/nav-logo.png';
+import navLogo from './assets/images/logo/nav-logo.png';
 
 function App() {
   return (
