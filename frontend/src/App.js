@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
 import navLogo from './assets/images/logo/nav-logo.png';
+import shortNavLogo from './assets/images/logo/short-nav-logo.svg';
 import heroImage from './assets/images/cover/hero-cover.svg';
 import Login from './components/Login';
 import UserLanding from './components/users/UserLanding';
@@ -29,12 +30,12 @@ function App() {
 
         <Route path='/users' element={
           <>
-            <Navbar navLogo={navLogo} />
+            <Navbar navLogo={shortNavLogo} />
             <UserLanding img={heroImage} />
           </>
           }
         />
-        
+
       </Routes>
       
       </div>
