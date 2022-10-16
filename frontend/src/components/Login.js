@@ -100,7 +100,7 @@ const Login = ({img}) => {
                     />
                 
                 <p className='text-sm text-justify'>By clicking Agree & Join, you agree to the LinkedIn User Agreement, Privacy Policy, and Cookie Policy.</p>
-                <button disabled={disable? true: false} className={`rounded-full bg-blue-700 text-white p-4 text-xl hover:bg-blue-900 ${disable? 'cursor-wait': 'cursor-pointer'}`}>Agree & Join</button>
+                <button disabled={disable? true: false} className={`rounded-full bg-blue-700 text-white p-4 text-xl hover:bg-blue-900 ${disable? 'cursor-not-allowed bg-blue-700/60 hover:bg-blue-700/60': 'cursor-pointer'}`}>Agree & Join</button>
             </form>
             <div className='flex flex-1'>
                 <img className='md:flex-1 flex' src={img} alt="React Logo" />
