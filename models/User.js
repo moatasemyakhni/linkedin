@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: 'Password is required',
         select: false,
+        min: 6,
     },
     profile: {
         type: String,

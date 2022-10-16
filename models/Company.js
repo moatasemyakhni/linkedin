@@ -18,6 +18,7 @@ const companySchema = mongoose.Schema({
         type: String,
         required: 'Password is required',
         select: false,
+        min: 6,
     },
     website: String,
     industry: {
