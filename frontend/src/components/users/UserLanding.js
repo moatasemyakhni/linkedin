@@ -1,6 +1,11 @@
-import React from 'react'
+import {useEffect} from 'react'
 
-const UserLanding = () => {
+const UserLanding = ({set_at_form}) => {
+
+    useEffect(() => {
+        set_at_form(false);
+      }, []);
+
   return (
     <div>UserLanding</div>
   )

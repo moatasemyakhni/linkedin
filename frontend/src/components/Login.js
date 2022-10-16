@@ -4,7 +4,7 @@ import {userLogin, getUserInfo} from '../api/usersApi';
 import {companyLogin, getCompanyInfo} from '../api/companyApi';
 import FormInput from './form/FormInput';
 
-const Login = ({img}) => {
+const Login = ({set_at_form, img}) => {
     const [showEmailLabel, setShowEmailLabel] = useState(false);
     const [showPasswordLabel, setShowPasswordLabel] = useState(false);
     const [email, setEmail] = useState('');
@@ -49,6 +49,7 @@ const Login = ({img}) => {
             const info = await getUserInfo(token.data.token);
             if(info.user) {
                 setDisable(false);
+                set_at_form(false);
                 navigate('/users');
             }
         }catch(err) {
@@ -59,6 +60,7 @@ const Login = ({img}) => {
     
                 const info = await getCompanyInfo(token.data.token);
                 if(info.company) {
+                    set_at_form(false);
                     navigate('/companies');
                 }
             }catch (err) {
