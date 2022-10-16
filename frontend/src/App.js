@@ -4,6 +4,7 @@ import Navbar from './components/navbar/Navbar';
 import navLogo from './assets/images/logo/nav-logo.png';
 import heroImage from './assets/images/cover/hero-cover.svg';
 import Login from './components/Login';
+import UserLanding from './components/users/UserLanding';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Navbar navLogo={navLogo} at_form={true} />
       <Routes>
         <Route path='/' element={<Login img={heroImage} />}/>
+        <Route path='/users' element={<UserLanding img={heroImage} />}/>
         {/* <Route path='/signup/company' element={<CompanySignup img={heroImage} />}/> */}
       </Routes>
       

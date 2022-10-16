@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import {userLogin} from '../api/usersApi';
+import { useNavigate } from 'react-router-dom';
+import {userLogin, getUserInfo} from '../api/usersApi';
 import FormInput from './form/FormInput';
 
 const Login = ({img}) => {
@@ -9,6 +10,8 @@ const Login = ({img}) => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isError, setIsError] = useState(false);
+    const navigate = useNavigate();
+
 
     const hideEmailLabel = (value) => {
         if(!value) {
@@ -37,8 +40,15 @@ const Login = ({img}) => {
                 email: email,
                 password: password,
             }
-            
-            await userLogin(data);
+
+            const token = await userLogin(data);
+            localStorage.setItem('user_token', token.data.token);
+
+            const info = await getUserInfo(token.data.token);
+            console.log(info);
+            if(info.user) {
+                navigate('/users');
+            }
         }catch(err) {
             setIsError(true);
             setErrorMessage(err.response.data.message);

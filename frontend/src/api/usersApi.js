@@ -2,12 +2,6 @@ import axios from "axios";
 
 const usersApi = axios.create({
     baseURL: 'http://localhost:3000/users',
-    // headers: {
-    //     'Content-Type': 'application/json',
-    //     'X-Requested-With': 'XMLHttpRequest',
-    //     'Access-Control-Allow-Origin': '*'
-
-    // }
 });
 
 // PARAMS: email and password
@@ -18,4 +12,11 @@ export const userLogin = async (data) => {
     });
 
     return response;
+}
+
+export const getUserInfo = async (token) => {
+    const response = await usersApi.post('/me', {
+        "token": token,
+    });
+    return response.data;
 }
