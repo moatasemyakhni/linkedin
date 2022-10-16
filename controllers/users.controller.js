@@ -134,6 +134,8 @@ const userInfo = async (req, res) => {
         const user = await User.findOne({email: decoded.email}).lean();
         if(user) {
             return res.json(user);
+        }else {
+            res.json({company: false});
         }
          
     }catch(err){

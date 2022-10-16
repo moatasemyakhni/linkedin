@@ -82,7 +82,25 @@ const signup = async(req, res) => {
     }
 }
 
+const companyInfo = async (req, res) => {
+    const token = req.body.token;
+    try{
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const company = await Company.findOne({email: decoded.email}).lean();
+        if(company) {
+            return res.json(company);
+        }else {
+            res.json({company: false});
+        }
+         
+    }catch(err){
+        res.json({company: false});
+    }
+}
+
+
 module.exports = {
     login,
-    signup
+    signup,
+    companyInfo
 }
