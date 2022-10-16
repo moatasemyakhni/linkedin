@@ -46,23 +46,14 @@ const Login = ({img}) => {
                     setInput={setEmail}
                     text={"Email"}
                     />
-                <div className='flex flex-col border pl-1'>
-                    {showPasswordLabel? (
-                        <label className='tex text-xs' htmlFor='password'>Password</label>
-                    ): (
-                        <label htmlFor='password' className='text-xs'>&nbsp;</label>
-                    )
-                    }
-                    <input 
-                        type='password'
-                        placeholder='Password'
-                        id='password'
-                        onFocus={() => setShowPasswordLabel(true)}
-                        onBlur={(e) => hidePasswordLabel(e.target.value)}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className=" outline-none h-7"
-                        />
-                </div>
+
+                <FormInput 
+                    showLabel={showPasswordLabel}
+                    setShowLabel={setShowPasswordLabel}
+                    hideLabel={hidePasswordLabel}
+                    setInput={setPassword}
+                    text={"Password"}
+                    />
                 
                 <p className='text-sm text-justify'>By clicking Agree & Join, you agree to the LinkedIn User Agreement, Privacy Policy, and Cookie Policy.</p>
                 <button className='rounded-full bg-blue-700 text-white p-4 text-xl hover:bg-blue-900'>Agree & Join</button>
