@@ -19,5 +19,3 @@ export const userLogin = async (data) => {
 
     return response;
 }
-console.log("HELLO")
-userLogin({email: "john@gmail.com", password: "111"});
