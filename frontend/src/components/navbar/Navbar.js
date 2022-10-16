@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 
-const Navbar = ({navLogo, at_form, users}) => {
+const Navbar = ({navLogo, at_form, users, companies}) => {
   return (
     <header className="w-full flex justify-between flex-wrap gap-2 pt-1">
     
@@ -20,6 +20,7 @@ const Navbar = ({navLogo, at_form, users}) => {
         </div>
     </>
     ):(
+    users?(
     <>
         <div className='w-20 cursor-pointer md:w-40'>
             <Link to={`/${users}`}>
@@ -28,6 +29,13 @@ const Navbar = ({navLogo, at_form, users}) => {
         </div>
         <h1>Hello me</h1>
     </>
+    ): (
+    companies?(
+        <h1>hello</h1>
+    ):(
+        <h1>Page Not Found</h1>
+    )
+    )
     )
     }
     </header>
