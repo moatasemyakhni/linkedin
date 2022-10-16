@@ -25,7 +25,7 @@ const Login = ({img}) => {
         
         <div className='flex flex-col gap-4 md:flex-row md:gap-2'>
             <form className='flex flex-col gap-3 text-black/60 md:flex-1'>
-                <h1 className='text-3xl py-4 font-normal'>Join the biggest professional community</h1>
+                <h1 className='text-3xl py-4 font-light'>Join the biggest professional community</h1>
                 <div className='flex flex-col border pl-1'>
                     {showEmailLabel? (
                         <label className='tex text-xs' htmlFor='email'>Email</label>
