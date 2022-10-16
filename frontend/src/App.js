@@ -16,21 +16,21 @@ function App() {
       <Routes>
         <Route path='/' element={
           <>
-            <Navbar navLogo={navLogo} at_form={true} />
+            <Navbar users={''} navLogo={navLogo} at_form={true} />
             <Login img={heroImage} />
           </>}
         />
 
         <Route path='/signup/user' element={
           <>
-            <Navbar navLogo={navLogo} at_form={true} />
+            <Navbar users={''} navLogo={navLogo} at_form={true} />
             <UserSignup />
           </>}
         />
 
         <Route path='/users' element={
           <>
-            <Navbar navLogo={shortNavLogo} />
+            <Navbar users={'users'} navLogo={shortNavLogo} />
             <UserLanding img={heroImage} />
           </>
           }
