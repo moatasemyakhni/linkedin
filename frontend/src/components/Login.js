@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import {userLogin} from '../api/usersApi';
 
 const Login = ({img}) => {
     const [showEmailLabel, setShowEmailLabel] = useState(false);
     const [showPasswordLabel, setShowPasswordLabel] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const hideEmailLabel = (value) => {
         if(!value) {
@@ -19,12 +22,21 @@ const Login = ({img}) => {
         }
         setShowPasswordLabel(true);
     }
+    const login = async (e) => {
+        e.preventDefault();
+        try {
+
+            const x = await userLogin({email: "john@sgmail.com", password:"123123"});
+            console.log(x.data);
+        }catch(err) {
+            console.log("err:", err.response.data.message);
+        }
+    }
 
   return (
-    <section>
-        
+    <section>   
         <div className='flex flex-col gap-4 md:flex-row md:gap-2'>
-            <form className='flex flex-col gap-3 text-black/60 md:flex-1'>
+            <form onSubmit={login} className='flex flex-col gap-3 text-black/60 md:flex-1'>
                 <h1 className='text-3xl py-4 font-light'>Join the biggest professional community</h1>
                 <div className='flex flex-col border pl-1'>
                     {showEmailLabel? (
@@ -39,6 +51,7 @@ const Login = ({img}) => {
                         id='email'
                         onFocus={() => setShowEmailLabel(true)}
                         onBlur={(e) => hideEmailLabel(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         className=" outline-none h-7"
                         />
                 </div>
@@ -55,6 +68,7 @@ const Login = ({img}) => {
                         id='password'
                         onFocus={() => setShowPasswordLabel(true)}
                         onBlur={(e) => hidePasswordLabel(e.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                         className=" outline-none h-7"
                         />
                 </div>
