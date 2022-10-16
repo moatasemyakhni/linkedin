@@ -1,5 +1,5 @@
 
-const FormInput = ({showLabel, setShowLabel, hideLabel, setInput, text, focusOnInput, type}) => {
+const FormInput = ({showLabel, setShowLabel, hideLabel, setInput, text, focusOnInput, type, value}) => {
   return (
     <div className='flex flex-col border pl-1'>
         {showLabel? (
@@ -11,6 +11,7 @@ const FormInput = ({showLabel, setShowLabel, hideLabel, setInput, text, focusOnI
         <input 
             type={type}
             placeholder={text}
+            value={value}
             id={text.toLowerCase()}
             onFocus={() => focusOnInput(setShowLabel)}
             onBlur={(e) => hideLabel(e.target.value)}
