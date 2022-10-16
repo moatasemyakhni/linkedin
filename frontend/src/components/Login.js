@@ -88,6 +88,7 @@ const Login = ({img}) => {
                     setInput={setEmail}
                     focusOnInput={focusOnInput}
                     text={"Email"}
+                    type={"email"}
                     />
 
                 <FormInput 
@@ -97,6 +98,7 @@ const Login = ({img}) => {
                     setInput={setPassword}
                     focusOnInput={focusOnInput}
                     text={"Password"}
+                    type={"password"}
                     />
                 
                 <p className='text-sm text-justify'>By clicking Agree & Join, you agree to the LinkedIn User Agreement, Privacy Policy, and Cookie Policy.</p>
