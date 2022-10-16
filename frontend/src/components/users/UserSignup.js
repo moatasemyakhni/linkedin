@@ -11,7 +11,6 @@ const UserSignup = () => {
     const [step, setStep] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
     const [isError, setIsError] = useState(false);
-    const [disable, setDisable] = useState(false);
     const [showEmailLabel, setShowEmailLabel] = useState(false);
     const [showPasswordLabel, setShowPasswordLabel] = useState(false);
     const [showFirstNameLabel, setShowFirstNameLabel] = useState(false);
@@ -211,7 +210,7 @@ const UserSignup = () => {
         setCountry('');
         setCity('');
         setPhone('');
-        
+        setStep(0);
         navigate('/users');
     }catch(err) {
         e.target.disabled = false;
