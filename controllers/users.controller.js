@@ -133,9 +133,9 @@ const userInfo = async (req, res) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         const user = await User.findOne({email: decoded.email}).lean();
         if(user) {
-            return res.json(user);
+            return res.json({...user, user: true});
         }else {
-            res.json({company: false});
+            res.json({user: false});
         }
          
     }catch(err){

@@ -88,7 +88,7 @@ const companyInfo = async (req, res) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         const company = await Company.findOne({email: decoded.email}).lean();
         if(company) {
-            return res.json(company);
+            return res.json({...company, company: true});
         }else {
             res.json({company: false});
         }
