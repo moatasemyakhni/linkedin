@@ -177,7 +177,7 @@ const UserSignup = () => {
                   text={'Phone'}
                   focusOnInput={focusOnInput}
                   type={'text'}
-                  value={city}
+                  value={phone}
               />
               <Button text={'Previous'} onClick={prevStep} />
               <Button text={'Confirm'} onClick={userSignup} />
