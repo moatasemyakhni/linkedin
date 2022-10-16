@@ -20,3 +20,17 @@ export const getUserInfo = async (token) => {
     });
     return response.data;
 }
+
+export const userSignup = async (data) => {
+    const response = await usersApi.post('/login', {
+        "email": data.email,
+        "password": data.password,
+        "first_name": data.first_name,
+        "last_name": data.last_name,
+        "country": data.country,
+        "city": data.city,
+        "phone": data.phone
+    });
+
+    return response.data;
+}
