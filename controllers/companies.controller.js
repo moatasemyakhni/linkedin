@@ -1,4 +1,5 @@
 const Company = require('../models/Company');
+const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -53,6 +54,11 @@ const signup = async(req, res) => {
     } = req.body;
 
     try {
+        //check email at user if exists
+        const checkEmail = await User.findOne({email: email});
+        if(checkEmail) {
+            throw {message: 'email is taken'};
+        }
         const company = new Company();
         company.name = name;
         company.email = email;
