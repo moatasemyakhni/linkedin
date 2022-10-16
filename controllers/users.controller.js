@@ -127,6 +127,20 @@ const unFollowCompany = async (req, res) => {
     }
 }
 
+const userInfo = async (req, res) => {
+    const token = req.body.token;
+    try{
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const user = await User.findOne({email: decoded.email}).lean();
+        if(user) {
+            return res.json(user);
+        }
+         
+    }catch(err){
+        res.json({user: false})
+    }
+}
+
 const base64ToImageWithPath = (user_id, firstName, lastName, base64) => {
     const extension = base64.split(';')[0].split('/')[1];
     const base64Image = base64.replace(/^data:image\/png;base64,/, "");
@@ -149,4 +163,5 @@ module.exports = {
     updateProfilePicture,
     followCompany,
     unFollowCompany,
+    userInfo
 }
