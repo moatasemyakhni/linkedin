@@ -6,7 +6,7 @@ const Navbar = ({navLogo, at_form}) => {
     <header className="w-full flex justify-between flex-wrap gap-2 pt-1">
     <div className='w-20 cursor-pointer md:w-40'>
         <Link to={"/"}>
-            <img className='mx-3' src={navLogo} alt="linkedin logo" />
+            <img src={navLogo} alt="linkedin logo" />
         </Link> 
     </div>
     <div className='my-auto'>
