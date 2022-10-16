@@ -45,8 +45,6 @@ const signup = async(req, res) => {
         last_name,
         email,
         password,
-        profile,
-        headline,
         country,
         city,
         phone,
@@ -61,8 +59,6 @@ const signup = async(req, res) => {
         user.last_name = last_name;
         user.email = email;
         user.password = await bcrypt.hash(password, 10);
-        user.profile = profile;
-        user.headline = headline;
         user.country = country;
         user.city = city;
         user.phone = phone;
