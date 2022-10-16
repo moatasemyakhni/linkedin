@@ -5,7 +5,7 @@ import navLogo from '../../assets/images/logo/nav-logo.png';
 const Navbar = ({at_form}) => {
   return (
     <header className="w-full flex justify-between flex-wrap gap-2 pt-1">
-    <div className='w-20 cursor-pointer'>
+    <div className='w-20 cursor-pointer md:w-40'>
         <Link to={"/"}>
             <img className='mx-3' src={navLogo} alt="linkedin logo" />
         </Link> 
