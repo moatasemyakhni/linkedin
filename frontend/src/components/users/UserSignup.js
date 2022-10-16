@@ -2,13 +2,13 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Button from '../form/Button';
 import FormInput from '../form/FormInput';
-
+import {userSignup} from '../../api/usersApi';
 
 const UserSignup = () => {
     
     const navigate = useNavigate();
 
-    const [step, setstep] = useState(0);
+    const [step, setStep] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
     const [isError, setIsError] = useState(false);
     const [disable, setDisable] = useState(false);
@@ -32,11 +32,11 @@ const UserSignup = () => {
     const [phone, setPhone] = useState("");
 
       const nextStep = () => {
-        setstep(step + 1);
+        setStep(step + 1);
       }
 
       const prevStep = () => {
-        setstep(step - 1);
+        setStep(step - 1);
       }
 
     const hideEmailLabel = (value) => {
@@ -180,7 +180,7 @@ const UserSignup = () => {
                   value={phone}
               />
               <Button text={'Previous'} onClick={prevStep} />
-              <Button text={'Confirm'} onClick={userSignup} />
+              <Button text={'Confirm'} onClick={(e) => signup(e)} />
           </div>)
     } else {
 
@@ -188,11 +188,35 @@ const UserSignup = () => {
     }
   }
 
-  const userSignup = () => {
-    console.log("Hoooray");
+  const signup = async (e) => {
+    e.target.disabled = true;
+    const data = {
+        email: email,
+        password: password,
+        first_name: firstName,
+        last_name: lastName,
+        country: country,
+        city: city,
+        phone: phone
+    }
+    try {
+        const signup = await userSignup(data);
+        console.log(signup);
+        e.target.disabled = false;
+
+    }catch(err) {
+        e.target.disabled = false;
+        setIsError(true);
+        setErrorMessage(err.response.data.message);
+    }
   }
   return (
     <div>
+        {isError? (
+            <p className='h-10 text-red-500 mt-6'>{errorMessage}</p>
+        ): (
+            <p className='h-10 text-red-500 mt-6'>&nbsp;</p>
+        )}
         {stepDisplay()}
     </div>
   )

@@ -22,7 +22,7 @@ export const getUserInfo = async (token) => {
 }
 
 export const userSignup = async (data) => {
-    const response = await usersApi.post('/login', {
+    const response = await usersApi.post('/signup', {
         "email": data.email,
         "password": data.password,
         "first_name": data.first_name,
