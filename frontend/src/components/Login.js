@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import {userLogin, getUserInfo} from '../api/usersApi';
+import {companyLogin, getCompanyInfo} from '../api/companyApi';
 import FormInput from './form/FormInput';
 
 const Login = ({img}) => {
@@ -35,23 +36,31 @@ const Login = ({img}) => {
     }
     const login = async (e) => {
         e.preventDefault();
+        const data = {
+            email: email,
+            password: password,
+        }
         try {
-            const data = {
-                email: email,
-                password: password,
-            }
-
             const token = await userLogin(data);
             localStorage.setItem('user_token', token.data.token);
 
             const info = await getUserInfo(token.data.token);
-            console.log(info);
             if(info.user) {
                 navigate('/users');
             }
         }catch(err) {
-            setIsError(true);
-            setErrorMessage(err.response.data.message);
+            try {
+                const token = await companyLogin(data);
+                localStorage.setItem('company_token', token.data.token);
+    
+                const info = await getCompanyInfo(token.data.token);
+                if(info.company) {
+                    navigate('/companies');
+                }
+            }catch (err) {
+                setIsError(true);
+                setErrorMessage(err.response.data.message);
+            }
         }
     }
 

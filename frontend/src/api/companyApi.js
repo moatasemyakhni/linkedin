@@ -5,7 +5,7 @@ const companiesApi = axios.create({
 });
 
 // PARAMS: email and password
-export const userLogin = async (data) => {
+export const companyLogin = async (data) => {
     const response = await companiesApi.post('/login', {
         "email": data.email,
         "password": data.password,
@@ -14,7 +14,7 @@ export const userLogin = async (data) => {
     return response;
 }
 
-export const getUserInfo = async (token) => {
+export const getCompanyInfo = async (token) => {
     const response = await companiesApi.post('/me', {
         "token": token,
     });
