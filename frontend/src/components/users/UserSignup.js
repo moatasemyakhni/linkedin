@@ -201,9 +201,18 @@ const UserSignup = () => {
     }
     try {
         const signup = await userSignup(data);
-        console.log(signup);
+        const token = signup.token;
+        localStorage.setItem('user_token', token);
         e.target.disabled = false;
-
+        setEmail('');
+        setPassword('');
+        setFirstName('');
+        setLastName('');
+        setCountry('');
+        setCity('');
+        setPhone('');
+        
+        navigate('/users');
     }catch(err) {
         e.target.disabled = false;
         setIsError(true);
