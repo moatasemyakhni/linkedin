@@ -1,13 +1,14 @@
-import logo2 from './assets/images/logo/nav-logo.svg';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import Navbar from './components/navbar/navbar';
+import Navbar from './components/navbar/Navbar';
 
 function App() {
   return (
-    <div className="App">
-        {/* <img src={logo2} alt="logo" /> */}
-        <Navbar />
-    </div>
+    <BrowserRouter>
+      <div>
+          <Navbar at_form={true} />
+      </div>
+    </BrowserRouter>
   );
 }
 
