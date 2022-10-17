@@ -43,7 +43,9 @@ const UserLanding = () => {
 
 
   return (
-    <div className='bg-gray-300'>UserLanding</div>
+    <div className='bg-gray-100 h-screen p-1'>
+      
+    </div>
   )
 }
 

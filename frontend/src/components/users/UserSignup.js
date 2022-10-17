@@ -199,6 +199,7 @@ const UserSignup = () => {
         phone: phone
     }
     try {
+        console.log(data);
         const signup = await userSignup(data);
         const token = signup.token;
         localStorage.setItem('user_token', token);

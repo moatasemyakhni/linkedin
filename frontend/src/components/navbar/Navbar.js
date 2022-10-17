@@ -121,7 +121,6 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
         :isSearchContent?
         <div className=' relative top-0 left-0 w-full min-h-[300px] bg-white z-10 h-10 overflow-y-scroll pt-2 pl-2 font-semibold md:w-3/4'>{
             searchContent.map((v) => {
-                // applyJob(v);
                 return(<div className='flex w-full my-3 bg-white p-3 shadow-md shadow-slate-900 gap-3'>
                 <p className='self-center'>{v.content}<span className='pl-1 text-xs'>[{v.company_id.name}]<br />{v.created_at.split('T')[0]}</span></p>
                 <Button text={'Apply'} onClick={(e) => applyForJob(e, {post_id: v._id, user_id:user_id}, localStorage.getItem('user_token'))}/>
@@ -134,16 +133,4 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
     </>
   )
 }
-// const applyJob = async (e) => {
-//     const data = {};
-//     data.post_id = e._id;//post
-//     data.company_id = e.company_id._id;//company
-//     e.applied_users.forEach(async (user) => {
-//         data.user_id = user;
-//         const x = await isApplied(data, localStorage.getItem('user_token'));
-//         console.log(x);
-//     });
-    
-//     e.target.innerText = 'applied';
-// }
 export default Navbar

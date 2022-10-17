@@ -22,6 +22,7 @@ export const getUserInfo = async (token) => {
 }
 
 export const userSignup = async (data) => {
+    console.log("inside data", data);
     const response = await usersApi.post('/signup', {
         "email": data.email,
         "password": data.password,
@@ -30,7 +31,6 @@ export const userSignup = async (data) => {
         "country": data.country,
         "city": data.city,
         "phone": data.phone,
-        "profile": data.profile,
     });
 
     return response.data;
