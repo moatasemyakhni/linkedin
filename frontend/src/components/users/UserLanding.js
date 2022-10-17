@@ -38,7 +38,8 @@ const UserLanding = () => {
 
   useEffect(() => {
     getUser(localStorage.getItem('user_token'));
-}, []);
+  }, []);
+
 
 
   return (

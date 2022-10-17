@@ -4,9 +4,15 @@ import notificationIcon from '../../assets/images/icons/notification.svg';
 import searchIcon from '../../assets/images/icons/search.svg';
 import {getUserInfo} from '../../api/usersApi';
 import { useEffect, useState } from 'react';
+import { searchForJob } from '../../api/postsApi';
+import Button from '../form/Button';
+
 
 const Navbar = ({navLogo, at_form, users, companies}) => {
     const [profile, setProfile] = useState('');
+    const [isSearchContent, setIsSearchContent] = useState(false);
+    const [searchContent, setSearchContent] = useState([]);
+    const [emptySearch, setEmptySearch] = useState(false);
     const getUser = async (token) => {
         const info = await getUserInfo(token);
         setProfile(info.profile);
@@ -16,9 +22,39 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
         getUser(localStorage.getItem('user_token'));
     }, [users]);
 
-  return (
-    <header className="w-full flex justify-between flex-wrap gap-2 pt-1">
+    const getSearchedJobs = async (key) => {
+        if(!key) {
+            setSearchContent([]);
+            setEmptySearch(false);
+            setIsSearchContent(false);
+            return;
+        }
+        try {
+          const data = await searchForJob(key);
+          console.log(data);
+          if(data.length === 0) {
+            
+            setIsSearchContent(false);
+            setEmptySearch(true);
+            return;
+          }
+          setEmptySearch(false);
+          setIsSearchContent(true);
+          setSearchContent(data);
+
+        }catch(err) {
+            setEmptySearch(false);
+            setIsSearchContent(false);
+          console.log(err);
+        }
     
+      }
+    const applyJob = async (e) => {
+
+    }
+  return (
+    <>
+    <header className="w-full flex justify-between flex-wrap gap-2 pt-1">
     { at_form? (
     <>
         <div className='w-20 cursor-pointer md:w-40'>
@@ -36,16 +72,18 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
     ):(
     users?(
     <>
-        <div className='w-20 cursor-pointer md:w-40'>
+        <div className='cursor-pointer flex'>
             <Link to={`/${users}`}>
                 <img src={navLogo} alt="linkedin logo" />
             </Link> 
-        </div>
-        <div className='flex gap-3'>
             <input 
                 id='search'
                 className='p-2 border bg-blue-300 h-6 placeholder-white self-center'
-                placeholder='search'/>
+                placeholder='search'
+                onChange={(e) => getSearchedJobs(e.target.value)}/>
+        </div>
+        <div className='flex gap-3'>
+            
            <img src={homeIcon} className="w-8 cursor-pointer
            " alt='home' /> 
            <img src={notificationIcon} className="w-8 cursor-pointer
@@ -67,6 +105,24 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
     )
     }
     </header>
+    {
+        emptySearch?
+        <div className=' relative top-0 left-0 w-full bg-white z-10 pt-2 pl-2 font-semibold md:w-3/4'>
+            <p className='w-full my-3 bg-white p-3 shadow-md shadow-slate-900'>No results</p>
+        </div>
+        :isSearchContent?
+        <div className=' relative top-0 left-0 w-full min-h-[300px] bg-white z-10 h-10 overflow-y-scroll pt-2 pl-2 font-semibold md:w-3/4'>{
+            searchContent.map((v) => {
+                return(<div className='flex w-full my-3 bg-white p-3 shadow-md shadow-slate-900 gap-3'>
+                <p className=' self-center'>{v.content}<span className='pl-1 text-xs'>{v.created_at.split('T')[0]}</span></p>
+                <Button text={'Apply'} onClick={(e) => applyJob(e)} />
+                </div>)
+            })
+        }
+        </div>:
+        <div></div>
+    }
+    </>
   )
 }
 
