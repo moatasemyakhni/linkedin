@@ -4,18 +4,20 @@ import notificationIcon from '../../assets/images/icons/notification.svg';
 import searchIcon from '../../assets/images/icons/search.svg';
 import {getUserInfo} from '../../api/usersApi';
 import { useEffect, useState } from 'react';
-import { searchForJob } from '../../api/postsApi';
+import { searchForJob, isApplied, applyJob } from '../../api/postsApi';
 import Button from '../form/Button';
 
 
 const Navbar = ({navLogo, at_form, users, companies}) => {
     const [profile, setProfile] = useState('');
+    const [user_id, setUser_id] = useState('');
     const [isSearchContent, setIsSearchContent] = useState(false);
     const [searchContent, setSearchContent] = useState([]);
     const [emptySearch, setEmptySearch] = useState(false);
     const getUser = async (token) => {
         const info = await getUserInfo(token);
         setProfile(info.profile);
+        setUser_id(info._id);
     }
 
     useEffect(() => {
@@ -31,7 +33,6 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
         }
         try {
           const data = await searchForJob(key);
-          console.log(data);
           if(data.length === 0) {
             
             setIsSearchContent(false);
@@ -45,13 +46,20 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
         }catch(err) {
             setEmptySearch(false);
             setIsSearchContent(false);
-          console.log(err);
         }
     
       }
-    const applyJob = async (e) => {
-
-    }
+    
+      const applyForJob = async (e, data, token) => {
+        //data for post and user id
+        try {
+            const response = await applyJob(data, token);
+            e.target.innerText = "Applied";
+        }catch (err) {
+            e.target.innerText = "Apply";
+            
+        }
+      }
   return (
     <>
     <header className="w-full flex justify-between flex-wrap gap-2 pt-1">
@@ -113,9 +121,10 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
         :isSearchContent?
         <div className=' relative top-0 left-0 w-full min-h-[300px] bg-white z-10 h-10 overflow-y-scroll pt-2 pl-2 font-semibold md:w-3/4'>{
             searchContent.map((v) => {
+                // applyJob(v);
                 return(<div className='flex w-full my-3 bg-white p-3 shadow-md shadow-slate-900 gap-3'>
-                <p className=' self-center'>{v.content}<span className='pl-1 text-xs'>{v.created_at.split('T')[0]}</span></p>
-                <Button text={'Apply'} onClick={(e) => applyJob(e)} />
+                <p className='self-center'>{v.content}<span className='pl-1 text-xs'>[{v.company_id.name}]<br />{v.created_at.split('T')[0]}</span></p>
+                <Button text={'Apply'} onClick={(e) => applyForJob(e, {post_id: v._id, user_id:user_id}, localStorage.getItem('user_token'))}/>
                 </div>)
             })
         }
@@ -125,5 +134,16 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
     </>
   )
 }
-
+// const applyJob = async (e) => {
+//     const data = {};
+//     data.post_id = e._id;//post
+//     data.company_id = e.company_id._id;//company
+//     e.applied_users.forEach(async (user) => {
+//         data.user_id = user;
+//         const x = await isApplied(data, localStorage.getItem('user_token'));
+//         console.log(x);
+//     });
+    
+//     e.target.innerText = 'applied';
+// }
 export default Navbar
