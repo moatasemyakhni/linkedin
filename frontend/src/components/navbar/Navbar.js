@@ -53,7 +53,11 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
     </>
     ): (
     companies?(
-        <h1>hello</h1>
+        <div className='w-20 cursor-pointer md:w-40'>
+            <Link to={`/${companies}`}>
+                <img src={navLogo} alt="linkedin logo" />
+            </Link> 
+        </div>
     ):(
         <h1>Page Not Found</h1>
     )

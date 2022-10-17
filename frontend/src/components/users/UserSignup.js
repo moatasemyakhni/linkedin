@@ -220,6 +220,7 @@ const UserSignup = () => {
   }
   return (
     <div>
+        <h3 className='text-3xl text-center font-bold text-blue-700'>User Signup</h3>
         {isError? (
             <p className='h-10 text-red-500 mt-6'>{errorMessage}</p>
         ): (
