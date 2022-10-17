@@ -3,23 +3,16 @@ const FormSelect = ({setInput, text, value, objectOfValues}) => {
     return (
       <div className='flex flex-col border pl-1'>
         <label className='tex text-xs' htmlFor={text.toLowerCase()}>{text}</label>
-          <input 
-              type={'select'}
-              placeholder={text}
-              value={value}
-              id={text.toLowerCase()}
-              onChange={(e) => setInput(e.target.value)}
-              className=" outline-none h-7"
-              />
             <select
                 value={value}
+                name={text.toLowerCase()}
                 id={text.toLowerCase()}
                 onChange={(e) => setInput(e.target.value)}
                 className="outline-none h-7"
             >
                 {
-                    objectOfValues.forEach(element => {
-                        return <option value={objectOfValues[element]} >{element}</option> 
+                    Object.keys(objectOfValues).map(e => {
+                        return <option value={objectOfValues[e]} >{e}</option> 
                     })
                 }
             </select>
