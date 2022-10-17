@@ -56,7 +56,8 @@ const searchForJobOffer = async (req, res) => {
     console.log(content);
     try {
     const posts = await Post
-        .find({'content': {$regex: `.*${content}.*`}});
+        .find({'content': {$regex: `.*${content}.*`}})
+        .populate('company_id');
         res.send(posts);
     }catch(err) {
         res.status(400).json({
