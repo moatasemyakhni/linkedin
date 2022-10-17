@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../form/Button";
 import FormInput from "../form/FormInput";
 import FormSelect from "../form/FormSelect";
-
+import {companySignup} from '../../api/companyApi';
 
 const CompanySignup = () => {
 
@@ -168,11 +168,42 @@ const CompanySignup = () => {
       }
 
       const signup = async (e) => {
-        console.log("Hooray")
+        e.target.disabled = true;
+        const data = {
+            name: name,
+            email: email,
+            password: password,
+            industry: industry,
+            organizationSize: organizationSize,
+            type: type,
+        }
+        try {
+            const signup = await companySignup(data);
+            const token = signup.token;
+            localStorage.setItem('company_token', token);
+            e.target.disabled = false;
+            setEmail('');
+            setPassword('');
+            setName('');
+            setIndustry('');
+            setOrganizationSize(companySize["0-1"]);
+            setType(typesOfCompany["public company"]);
+            navigate('/companies');
+        }catch(err) {
+            e.target.disabled = false;
+            setIsError(true);
+            setErrorMessage(err.response.data.message);
+        }
       }
 
   return (
     <div>
+        {isError? (
+            <p className='h-10 text-red-500 mt-6'>{errorMessage}</p>
+        ): (
+            <p className='h-10 text-red-500 mt-6'>&nbsp;</p>
+        )}
+
         {
             stepDisplay()
         }

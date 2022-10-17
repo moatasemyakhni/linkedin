@@ -21,14 +21,14 @@ export const getCompanyInfo = async (token) => {
     return response.data;
 }
 
-export const userSignup = async (data) => {
+export const companySignup = async (data) => {
     const response = await companiesApi.post('/signup', {
-        "name": data.email,
-        "email": data.password,
-        "password": data.first_name,
-        "industry": data.last_name,
-        "organizationSize": data.country,
-        "type": data.city,
+        "name": data.name,
+        "email": data.email,
+        "password": data.password,
+        "industry": data.industry,
+        "organizationSize": data.organizationSize,
+        "type": data.type,
     });
 
     return response.data;
