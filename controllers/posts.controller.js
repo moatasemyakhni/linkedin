@@ -51,6 +51,36 @@ const getApplicants = async (req, res) => {
     }
 }
 
+const isUserApplied = async (req, res) => {
+    const company_id = req.body.company_id;
+    const post_id = req.body.post_id;
+    const user_id = req.body.user_id;
+    try {
+        const post = await Post
+        .find({'company_id': company_id})
+        .where('_id', post_id)
+        .populate('applied_users')
+        .select('applied_users');
+        if(post.length === 0) {
+            throw {error: "No applied people"};
+        }
+        const arr = [];
+        post.forEach(val => {
+            val.applied_users.forEach(user => {
+                if(user._id == user_id) {  
+                    arr.push(user_id)
+                }
+            })
+        });
+        res.send(arr);
+    }catch(err) {
+        res.json({
+            "message": "error",
+            "error": err.message,
+        });
+    }
+}
+
 const searchForJobOffer = async (req, res) => {
     const content = req.params.search;
     console.log(content);
@@ -70,5 +100,6 @@ module.exports = {
     createPost,
     applyToPost,
     getApplicants,
-    searchForJobOffer
+    searchForJobOffer,
+    isUserApplied
 }
