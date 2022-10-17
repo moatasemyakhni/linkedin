@@ -59,6 +59,9 @@ const signup = async(req, res) => {
         if(checkEmail) {
             throw {message: 'email is taken'};
         }
+        if(!password) {
+            throw {message: 'All fields are required'}
+        }
         if(password.length < 6) {
             throw {message: 'password should be at least 6 chars'};
         }
