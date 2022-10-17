@@ -29,7 +29,8 @@ export const userSignup = async (data) => {
         "last_name": data.last_name,
         "country": data.country,
         "city": data.city,
-        "phone": data.phone
+        "phone": data.phone,
+        "profile": data.profile,
     });
 
     return response.data;

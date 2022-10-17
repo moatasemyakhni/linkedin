@@ -1,7 +1,21 @@
 import { Link } from 'react-router-dom';
-
+import homeIcon from '../../assets/images/icons/home.svg';
+import notificationIcon from '../../assets/images/icons/notification.svg';
+import searchIcon from '../../assets/images/icons/search.svg';
+import {getUserInfo} from '../../api/usersApi';
+import { useEffect, useState } from 'react';
 
 const Navbar = ({navLogo, at_form, users, companies}) => {
+    const [profile, setProfile] = useState('');
+    const getUser = async (token) => {
+        const info = await getUserInfo(token);
+        setProfile(info.profile);
+    }
+
+    useEffect(() => {
+        getUser(localStorage.getItem('user_token'));
+    }, [users]);
+
   return (
     <header className="w-full flex justify-between flex-wrap gap-2 pt-1">
     
@@ -27,7 +41,15 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
                 <img src={navLogo} alt="linkedin logo" />
             </Link> 
         </div>
-        <h1>Hello me</h1>
+        <div className='flex gap-3'>
+           <img src={searchIcon} className="w-8 cursor-pointer
+           " alt='search' /> 
+           <img src={homeIcon} className="w-8 cursor-pointer
+           " alt='home' /> 
+           <img src={notificationIcon} className="w-8 cursor-pointer
+           " alt='notification' />
+           <img src={`${profile}`} className="w-8 rounded-full object-fill cursor-pointer" alt='user profile'/>
+        </div>
     </>
     ): (
     companies?(
