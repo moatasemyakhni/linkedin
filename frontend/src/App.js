@@ -8,6 +8,7 @@ import Login from './components/Login';
 import UserLanding from './components/users/UserLanding';
 import UserSignup from './components/users/UserSignup';
 import CompanySignup from './components/companies/CompanySignup';
+import CompanyLanding from './components/companies/CompanyLanding';
 
 function App() {
 
@@ -32,7 +33,7 @@ function App() {
         <Route path='/users' element={
           <>
             <Navbar users={'users'} navLogo={shortNavLogo} />
-            <UserLanding img={heroImage} />
+            <UserLanding />
           </>
           }
         />
@@ -44,8 +45,17 @@ function App() {
           </>
         }
         />
-
+        
+        <Route path='/companies' element={
+          <>
+            <Navbar companies={'companies'} navLogo={shortNavLogo} />
+            <CompanyLanding /> 
+          </>
+          }
+        />
       </Routes>
+
+      
       
       </div>
     </BrowserRouter>
