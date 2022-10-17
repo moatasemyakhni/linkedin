@@ -152,10 +152,10 @@ const CompanySignup = () => {
                   />
           
                   <FormSelect 
-                      setInput={setIndustry}
-                      text={'Industry'}
+                      setInput={setOrganizationSize}
+                      text={'Organization size'}
                       objectOfValues={companySize}
-                      value={companySize}
+                      value={organizationSize}
                   />
                   
                   <Button text={'Previous'} onClick={prevStep} />
