@@ -42,8 +42,10 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
             </Link> 
         </div>
         <div className='flex gap-3'>
-           <img src={searchIcon} className="w-8 cursor-pointer
-           " alt='search' /> 
+            <input 
+                id='search'
+                className='p-2 border bg-blue-300 h-6 placeholder-white self-center'
+                placeholder='search'/>
            <img src={homeIcon} className="w-8 cursor-pointer
            " alt='home' /> 
            <img src={notificationIcon} className="w-8 cursor-pointer
