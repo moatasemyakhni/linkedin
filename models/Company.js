@@ -6,6 +6,7 @@ const companySchema = mongoose.Schema({
         type: String,
         required: 'Company name is required',
         min: 3,
+        unique: true,
     },
     email: {
         type: String,
