@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const fs = require('fs');
+const Company = require('../models/Company');
 const user_type = 'user';
 
 const createToken = (user) => {
@@ -126,6 +127,24 @@ const unFollowCompany = async (req, res) => {
     }
 }
 
+const getCompanies = async (req, res) => {
+    try {
+        const user_id = req.body.user_id;
+        const user = await User.findById(user_id);
+        console.log(user);
+        const followedCompanies = [];
+        user.follow_company.forEach((c) => {
+            followedCompanies.push(c);
+        })
+        console.log(followedCompanies);
+        const company = await Company.find({'_id': {$nin: followedCompanies}});
+        console.log(company);
+        res.send(company);
+    }catch (err) {
+        res.json({error: err.message});
+    }
+}
+
 const userInfo = async (req, res) => {
     const token = req.body.token;
     try{
@@ -164,5 +183,6 @@ module.exports = {
     updateProfilePicture,
     followCompany,
     unFollowCompany,
-    userInfo
+    userInfo,
+    getCompanies
 }
