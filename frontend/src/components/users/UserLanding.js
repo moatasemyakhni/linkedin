@@ -42,7 +42,7 @@ const UserLanding = () => {
 
 
   return (
-    <div>UserLanding</div>
+    <div className='bg-gray-300'>UserLanding</div>
   )
 }
 
