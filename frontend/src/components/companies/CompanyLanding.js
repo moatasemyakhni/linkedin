@@ -1,8 +1,8 @@
 
-const CompanyLanding = () => {
-  return (
-    <div>CompanyLanding</div>
-  )
-}
 
+const CompanyLanding = () => {
+  return(
+    <div>HELLO</div>
+  )   
+}
 export default CompanyLanding
