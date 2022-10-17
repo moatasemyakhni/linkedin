@@ -7,6 +7,7 @@ import heroImage from './assets/images/cover/hero-cover.svg';
 import Login from './components/Login';
 import UserLanding from './components/users/UserLanding';
 import UserSignup from './components/users/UserSignup';
+import CompanySignup from './components/companies/CompanySignup';
 
 function App() {
 
@@ -34,6 +35,14 @@ function App() {
             <UserLanding img={heroImage} />
           </>
           }
+        />
+
+        <Route path='/signup/company' element={
+          <>
+            <Navbar at_form={true} navLogo={navLogo} />
+            <CompanySignup /> 
+          </>
+        }
         />
 
       </Routes>
