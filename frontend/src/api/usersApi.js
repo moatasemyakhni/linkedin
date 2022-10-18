@@ -46,7 +46,7 @@ export const follow = async (data, token) => {
 }
 
 export const unFollow = async (data, token) => {
-    const response = await usersApi.delete('/unfollow_company', {
+    const response = await usersApi.patch('/unfollow_company', {
         "user_id": data.user_id,
         "company_id": data.company_id
     }, configuration(token));

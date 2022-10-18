@@ -5,6 +5,7 @@ import {getUserInfo, follow, unFollow, getUnfollowedCompanies} from '../../api/u
 const UserLanding = () => {
   const navigate = useNavigate();
   const [unFollowedCompany, setUnFollowedCompany] = useState([]);
+  const [company_id, setCompany_id] = useState('');
   const [userData, setUserData] = useState({
     _id: '',
     first_name: '',
@@ -47,14 +48,33 @@ const UserLanding = () => {
     getCompanies();
   }, [userData]);
 
-  const insertFollow = () => {
-    console.log("follow")
-    //follow();
+  const insertFollow = async (e) => {
+    const data = {};
+    data.user_id = userData._id;
+    data.company_id = company_id;
+    
+    try {
+      await follow(data, localStorage.getItem('user_token'));
+      await getUser(localStorage.getItem('user_token'));
+      e.target.innerText = "UnFollow"
+    }catch(err) {
+      console.log(err);
+    }
   }
 
-  const insertUnFollowed = () => {
-    console.log("unfollow")
-   // unFollow();
+  const insertUnFollowed = async (e) => {
+    
+    const data = {};
+    data.user_id = userData._id;
+    data.company_id = company_id;
+    try {
+      console.log(data, localStorage.getItem('user_token'));
+      await unFollow(data, localStorage.getItem('user_token'));
+      await getUser(localStorage.getItem('user_token'));
+      e.target.innerText = "Follow"
+    }catch(err) {
+      console.log(err);
+    }
   }
 
   const getCompanies = async () => {
@@ -83,12 +103,13 @@ const UserLanding = () => {
                   onClick={
                     userData.follow_company.includes(value._id)? (
                       (e) => {
-
-                        insertUnFollowed(e)
+                        setCompany_id(value._id);
+                        insertUnFollowed(e);
                       }
                     ): (
                       (e) => {
-                        insertFollow(e)
+                        setCompany_id(value._id);
+                        insertFollow(e);
                       }
                     )
                   }>{
