@@ -49,8 +49,6 @@ const signup = async(req, res) => {
         industry,
         organizationSize,
         type,
-        logo,
-        tagline,
     } = req.body;
 
     try {
@@ -103,8 +101,45 @@ const companyInfo = async (req, res) => {
 }
 
 
+const updateLogo = async (req, res) => {
+    const company_id = req.body._id;
+    //in base64
+    const newProfile = req.body.profile;
+    try {
+        const company = await Company.findById(company_id);
+        company.logo = base64ToImageWithPath(company_id, company.name, newProfile);
+        company.save();
+        res.send(company);
+    }catch(err) {
+        res.status(400).json({
+            message: err.message,
+        });
+    }
+}
+
+
+const base64ToImageWithPath = (company_id, name, base64) => {
+    const extension = base64.split(';')[0].split('/')[1];
+
+    const base64Image = base64.replace(/^data:image\/png;base64,/, "");
+    const imgName = `${name}_${Date.now()}.${extension}`;
+    const path = `${process.env.COMPANY_IMAGE_PATH}/${company_id}`;
+    if(!fs.existsSync(path)) {
+        fs.mkdirSync(path);
+    }
+    // store image in server
+    const completePath = `${process.env.COMPANY_IMAGE_LOCAL_PATH}/${company_id}/${imgName}`;
+    // store image in actual path
+    const completePath2 = `${process.env.COMPANY_IMAGE_PATH}/${company_id}/${imgName}`;
+    fs.writeFile(completePath2, base64Image, 'base64', (err) => {
+        if(err) throw err;
+    });
+    return completePath;
+}
+
 module.exports = {
     login,
     signup,
-    companyInfo
+    companyInfo,
+    updateLogo,
 }
