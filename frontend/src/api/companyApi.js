@@ -1,4 +1,5 @@
 import axios from "axios";
+import { configuration } from "./postsApi";
 
 const companiesApi = axios.create({
     baseURL: 'http://localhost:3000/companies',
@@ -30,6 +31,15 @@ export const companySignup = async (data) => {
         "organizationSize": data.organizationSize,
         "type": data.type,
     });
+
+    return response.data;
+}
+
+export const editLogo = async (data, token) => {
+    const response = await companiesApi.patch('/', {
+        "_id": data._id,
+        "logo": data.logo,
+    }, configuration(token));
 
     return response.data;
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getUserInfo, editProfile } from '../../api/usersApi'
 import Button from '../form/Button';
-import { getCompanyInfo } from '../../api/companyApi';
+import { getCompanyInfo, editLogo } from '../../api/companyApi';
 
 
 const CompanyProfile = () => {
@@ -21,7 +21,6 @@ const CompanyProfile = () => {
       const getCompany = async (token) => {
         try {
           const info = await getCompanyInfo(token);
-          console.log(info)
           if(!info.company) {
             navigate('/');
           }
@@ -36,7 +35,6 @@ const CompanyProfile = () => {
           data.type = info.type;
           data.website = info.website;
           setCompanyData(data);
-          console.log(data)
         } catch(err) {
           navigate('/');
         }
@@ -46,7 +44,7 @@ const CompanyProfile = () => {
         getCompany(localStorage.getItem('company_token'));
       }, []);
 
-      const changeProfile = (e) => {
+      const changeLogo = (e) => {
         const newImage = e.target.files[0];
 
         const reader = new FileReader();
@@ -55,12 +53,11 @@ const CompanyProfile = () => {
             const finalImage = reader.result;
             const data = {};
             data._id = companyData._id;
-            data.profile = finalImage;
+            data.logo = finalImage;
             try {
-                await editProfile(data, localStorage.getItem('company_token'));
+                await editLogo(data, localStorage.getItem('company_token'));
                 await getCompany(localStorage.getItem('company_token'));
             }catch(err) {
-              console.log(err);
                 return;
             }
         })
@@ -75,12 +72,12 @@ const CompanyProfile = () => {
   return (
     <div className='h-screen bg-gray-200 p-5'>
         <div>
-            <label htmlFor='profile' className=''><img src={companyData.profile} className="block rounded-1/2 mx-auto object-fill" alt='company profile'/></label>
+            <label htmlFor='profile' className=''><img src={companyData.logo} className="block rounded-1/2 mx-auto object-fill" alt='company profile'/></label>
             <input 
                 type='file'
                 className='w-0'
                 id='profile'
-                onChange={(e) => changeProfile(e)}
+                onChange={(e) => changeLogo(e)}
             />
         </div>
       <div className='flex justify-center'>
