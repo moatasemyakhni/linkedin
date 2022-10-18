@@ -162,14 +162,16 @@ const userInfo = async (req, res) => {
 
 const base64ToImageWithPath = (user_id, firstName, lastName, base64) => {
     const extension = base64.split(';')[0].split('/')[1];
+
     const base64Image = base64.replace(/^data:image\/png;base64,/, "");
     const imgName = `${firstName}_${lastName}_${Date.now()}.${extension}`;
-    const path = `${process.env.IMAGE_LOCAL_PATH}/${user_id}`;
+    const path = `${process.env.IMAGE_PATH}/${user_id}`;
     if(!fs.existsSync(path)) {
         fs.mkdirSync(path);
     }
     const completePath = `${process.env.IMAGE_LOCAL_PATH}/${user_id}/${imgName}`;
-    fs.writeFile(completePath, base64Image, 'base64', (err) => {
+    const completePath2 = `${process.env.IMAGE_PATH}/${user_id}/${imgName}`;
+    fs.writeFile(completePath2, base64Image, 'base64', (err) => {
         if(err) throw err;
     });
     return completePath;

@@ -83,7 +83,6 @@ const isUserApplied = async (req, res) => {
 
 const searchForJobOffer = async (req, res) => {
     const content = req.params.search;
-    console.log(content);
     try {
     const posts = await Post
         .find({'content': {$regex: `.*${content}.*`}})
