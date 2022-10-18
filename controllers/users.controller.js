@@ -165,12 +165,14 @@ const base64ToImageWithPath = (user_id, firstName, lastName, base64) => {
 
     const base64Image = base64.replace(/^data:image\/png;base64,/, "");
     const imgName = `${firstName}_${lastName}_${Date.now()}.${extension}`;
-    const path = `${process.env.IMAGE_PATH}/${user_id}`;
+    const path = `${process.env.USER_IMAGE_PATH}/${user_id}`;
     if(!fs.existsSync(path)) {
         fs.mkdirSync(path);
     }
-    const completePath = `${process.env.IMAGE_LOCAL_PATH}/${user_id}/${imgName}`;
-    const completePath2 = `${process.env.IMAGE_PATH}/${user_id}/${imgName}`;
+    // store image in server
+    const completePath = `${process.env.USER_IMAGE_LOCAL_PATH}/${user_id}/${imgName}`;
+    // store image in actual path
+    const completePath2 = `${process.env.USER_IMAGE_PATH}/${user_id}/${imgName}`;
     fs.writeFile(completePath2, base64Image, 'base64', (err) => {
         if(err) throw err;
     });
