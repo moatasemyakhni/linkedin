@@ -43,3 +43,4 @@ export const editLogo = async (data, token) => {
 
     return response.data;
 }
+

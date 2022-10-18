@@ -32,3 +32,11 @@ export const applyJob = async (data, token) => {
 
     return response.data;
 }
+
+export const createPost = async (data, token) => {
+    const response = await postsApi.post('/', {
+        "_id": data.company_id,
+        "content": data.content,
+    }, configuration(token));
+    return response.data;
+}
