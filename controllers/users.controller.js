@@ -98,7 +98,7 @@ const updateProfilePicture = async (req, res) => {
 }
 
 const followCompany = async (req, res) => {
-    const user_id = req.body._id;
+    const user_id = req.body.user_id;
     const company_id = req.body.company_id;
     try {
         const user = await User.findById(user_id);
@@ -113,7 +113,7 @@ const followCompany = async (req, res) => {
 }
 
 const unFollowCompany = async (req, res) => {
-    const user_id = req.body._id;
+    const user_id = req.body.user_id;
     const company_id = req.body.company_id;
     try {
         const user = await User.findById(user_id);
@@ -128,17 +128,17 @@ const unFollowCompany = async (req, res) => {
 }
 
 const getCompanies = async (req, res) => {
+    const user_id = req.body.user_id;
+    if(!user_id) return;
     try {
-        const user_id = req.body.user_id;
+        
         const user = await User.findById(user_id);
-        console.log(user);
         const followedCompanies = [];
         user.follow_company.forEach((c) => {
             followedCompanies.push(c);
         })
-        console.log(followedCompanies);
-        const company = await Company.find({'_id': {$nin: followedCompanies}});
-        console.log(company);
+        // const company = await Company.find({'_id': {$nin: followedCompanies}});
+        const company = await Company.find();
         res.send(company);
     }catch (err) {
         res.json({error: err.message});

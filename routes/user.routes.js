@@ -9,6 +9,6 @@ router.get('/', userAuthMiddleware, getAllUsers);
 router.post('/me', userInfo);
 router.patch('/', userAuthMiddleware, updateProfilePicture);
 router.patch('/follow_company', userAuthMiddleware, followCompany);
-router.delete('/unfollow_company', userAuthMiddleware, unFollowCompany);
-router.get('/company',getCompanies);
+router.patch('/unfollow_company', userAuthMiddleware, unFollowCompany);
+router.post('/company',getCompanies);
 module.exports = router;
