@@ -58,7 +58,7 @@ const UserLanding = () => {
       await getUser(localStorage.getItem('user_token'));
       e.target.innerText = "UnFollow"
     }catch(err) {
-      console.log(err);
+      return
     }
   }
 
@@ -68,12 +68,11 @@ const UserLanding = () => {
     data.user_id = userData._id;
     data.company_id = company_id;
     try {
-      console.log(data, localStorage.getItem('user_token'));
       await unFollow(data, localStorage.getItem('user_token'));
       await getUser(localStorage.getItem('user_token'));
       e.target.innerText = "Follow"
     }catch(err) {
-      console.log(err);
+      return
     }
   }
 
@@ -84,7 +83,7 @@ const UserLanding = () => {
       const companies = await getUnfollowedCompanies(data);  
       setUnFollowedCompany(companies);
     }catch(err) {
-      console.log("err", err)
+      return
     }
   }
   return (
