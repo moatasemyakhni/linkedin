@@ -9,6 +9,7 @@ import UserLanding from './components/users/UserLanding';
 import UserSignup from './components/users/UserSignup';
 import CompanySignup from './components/companies/CompanySignup';
 import CompanyLanding from './components/companies/CompanyLanding';
+import UserProfile from './components/users/UserProfile'
 
 function App() {
 
@@ -34,6 +35,14 @@ function App() {
           <>
             <Navbar users={'users'} navLogo={shortNavLogo} />
             <UserLanding />
+          </>
+          }
+        />
+
+        <Route path='/users/profile' element={
+          <>
+            <Navbar users={'users'} navLogo={shortNavLogo} />
+            <UserProfile />
           </>
           }
         />

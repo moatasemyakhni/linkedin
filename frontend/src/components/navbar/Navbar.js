@@ -96,7 +96,7 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
            " alt='home' /> 
            <img src={notificationIcon} className="w-8 cursor-pointer
            " alt='notification' />
-           <img src={`${profile}`} className="w-8 h-11 rounded-1/2 object-fill cursor-pointer" alt='user profile'/>
+           <Link to={'/users/profile'}><img src={`${profile}`} className="w-8 h-11 rounded-1/2 object-fill cursor-pointer" alt='user profile'/></Link>
         </div>
     </>
     ): (
