@@ -6,11 +6,13 @@ import {getUserInfo} from '../../api/usersApi';
 import { useEffect, useState } from 'react';
 import { searchForJob, isApplied, applyJob } from '../../api/postsApi';
 import Button from '../form/Button';
+import { getCompanyInfo } from '../../api/companyApi';
 
 
 const Navbar = ({navLogo, at_form, users, companies}) => {
     const [profile, setProfile] = useState('');
     const [user_id, setUser_id] = useState('');
+    const [companyProfile, setCompanyProfile] = useState('');
     const [isSearchContent, setIsSearchContent] = useState(false);
     const [searchContent, setSearchContent] = useState([]);
     const [emptySearch, setEmptySearch] = useState(false);
@@ -20,8 +22,13 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
         setUser_id(info._id);
     }
 
+    const getCompany = async (token) => {
+        const companyData = await getCompanyInfo(token);
+        setCompanyProfile(companyData.logo);
+    }
     useEffect(() => {
         getUser(localStorage.getItem('user_token'));
+        getCompany(localStorage.getItem('company_token'))
     }, [users]);
 
     const getSearchedJobs = async (key) => {
@@ -90,10 +97,10 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
                 placeholder='search'
                 onChange={(e) => getSearchedJobs(e.target.value)}/>
         </div>
-        <div className='flex gap-3'>
+        <div className='flex gap-3 items-center'>
             
-           <img src={homeIcon} className="w-8 cursor-pointer
-           " alt='home' /> 
+           <Link to={'/users'}><img src={homeIcon} className="w-8 cursor-pointer
+         " alt='home' /> </Link>
            <img src={notificationIcon} className="w-8 cursor-pointer
            " alt='notification' />
            <Link to={'/users/profile'}><img src={`${profile}`} className="w-8 h-11 rounded-1/2 object-fill cursor-pointer" alt='user profile'/></Link>
@@ -101,10 +108,18 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
     </>
     ): (
     companies?(
-        <div className='w-20 cursor-pointer md:w-40'>
+        <div className='w-full flex flex-wrap justify-between'>
             <Link to={`/${companies}`}>
                 <img src={navLogo} alt="linkedin logo" />
             </Link> 
+
+            <div className='flex gap-3 items-center'>
+            
+                <Link to={'/companies'}><img src={homeIcon} className="w-8 cursor-pointer
+                " alt='home' /> </Link>
+            
+                <Link to={'/companies/profile'}><img src={`${companyProfile}`} className="w-8 h-11 rounded-1/2 object-fill cursor-pointer" alt='company profile'/></Link>
+            </div>
         </div>
     ):(
         <h1>Page Not Found</h1>

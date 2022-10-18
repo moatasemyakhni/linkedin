@@ -2,37 +2,40 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getUserInfo, editProfile } from '../../api/usersApi'
 import Button from '../form/Button';
+import { getCompanyInfo } from '../../api/companyApi';
 
-const UserProfile = () => {
+
+const CompanyProfile = () => {
     const navigate = useNavigate();
-    const [userData, setUserData] = useState({
+    const [companyData, setCompanyData] = useState({
         _id: '',
-        first_name: '',
-        last_name: '',
-        country: '',
-        city: '',
-        headline: '',
-        phone: '',
-        profile: '',
-        follow_company: [],
+        name: '',
+        email: '',
+        industry: '',
+        logo: '',
+        organizationSize: '',
+        tagline: '',
+        type: '',
+        website: '',
       })
-      const getUser = async (token) => {
+      const getCompany = async (token) => {
         try {
-          const info = await getUserInfo(token);
-          if(!info.user) {
+          const info = await getCompanyInfo(token);
+          console.log(info)
+          if(!info.company) {
             navigate('/');
           }
           const data = {};
           data._id = info._id;
-          data.first_name = info.first_name;
-          data.last_name = info.last_name;
-          data.country = info.country;
-          data.city = info.city;
-          data.headline = info.headline;
-          data.phone = info.phone;
-          data.profile = info.profile;
-          data.follow_company = info.follow_company;
-          setUserData(data);
+          data.name = info.name;
+          data.email = info.email;
+          data.industry = info.industry;
+          data.logo = info.logo;
+          data.organizationSize = info.organizationSize;
+          data.tagline = info.tagline;
+          data.type = info.type;
+          data.website = info.website;
+          setCompanyData(data);
           console.log(data)
         } catch(err) {
           navigate('/');
@@ -40,7 +43,7 @@ const UserProfile = () => {
       }
     
       useEffect(() => {
-        getUser(localStorage.getItem('user_token'));
+        getCompany(localStorage.getItem('company_token'));
       }, []);
 
       const changeProfile = (e) => {
@@ -51,11 +54,11 @@ const UserProfile = () => {
         reader.addEventListener('load', async () => {
             const finalImage = reader.result;
             const data = {};
-            data._id = userData._id;
+            data._id = companyData._id;
             data.profile = finalImage;
             try {
-                await editProfile(data, localStorage.getItem('user_token'));
-                await getUser(localStorage.getItem('user_token'));
+                await editProfile(data, localStorage.getItem('company_token'));
+                await getCompany(localStorage.getItem('company_token'));
             }catch(err) {
               console.log(err);
                 return;
@@ -66,13 +69,13 @@ const UserProfile = () => {
       }
 
       const logout = () => {
-        localStorage.setItem('user_token', null);
-        getUser(localStorage.getItem('user_token'));
+        localStorage.setItem('company_token', null);
+        getCompany(localStorage.getItem('company_token'));
       }
   return (
     <div className='h-screen bg-gray-200 p-5'>
         <div>
-            <label htmlFor='profile' className=''><img src={userData.profile} className="block rounded-1/2 mx-auto object-fill" alt='user profile'/></label>
+            <label htmlFor='profile' className=''><img src={companyData.profile} className="block rounded-1/2 mx-auto object-fill" alt='company profile'/></label>
             <input 
                 type='file'
                 className='w-0'
@@ -87,4 +90,4 @@ const UserProfile = () => {
   )
 }
 
-export default UserProfile
+export default CompanyProfile

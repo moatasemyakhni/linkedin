@@ -10,6 +10,7 @@ import UserSignup from './components/users/UserSignup';
 import CompanySignup from './components/companies/CompanySignup';
 import CompanyLanding from './components/companies/CompanyLanding';
 import UserProfile from './components/users/UserProfile'
+import CompanyProfile from './components/companies/CompanyProfile';
 
 function App() {
 
@@ -59,6 +60,14 @@ function App() {
           <>
             <Navbar companies={'companies'} navLogo={shortNavLogo} />
             <CompanyLanding /> 
+          </>
+          }
+        />
+
+        <Route path='/companies/profile' element={
+          <>
+            <Navbar companies={'companies'} navLogo={shortNavLogo} />
+            <CompanyProfile /> 
           </>
           }
         />
