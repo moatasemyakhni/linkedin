@@ -73,8 +73,6 @@ const signup = async(req, res) => {
         company.industry = industry;
         company.organizationSize = organizationSize;
         company.type = type;
-        company.logo = logo;
-        company.tagline = tagline;
 
         await company.save();
         res.status(200).json({
