@@ -137,7 +137,6 @@ const getCompanies = async (req, res) => {
         user.follow_company.forEach((c) => {
             followedCompanies.push(c);
         })
-        // const company = await Company.find({'_id': {$nin: followedCompanies}});
         const company = await Company.find();
         res.send(company);
     }catch (err) {
