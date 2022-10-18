@@ -11,7 +11,7 @@ const postsApi = axios.create({
 postsApi.defaults.headers.common['Authorization'] = localStorage.getItem('user_token');
 
 export const searchForJob = async (key) => {
-    const response = await postsApi.get(`/${key}`);
+    const response = await postsApi.get(`/jobs/${key}`);
     return response.data;
 }
 
@@ -38,5 +38,10 @@ export const createPost = async (data, token) => {
         "_id": data.company_id,
         "content": data.content,
     }, configuration(token));
+    return response.data;
+}
+
+export const getApplicants = async (data, token) => {
+    const response = await postsApi.get(`/${data.id}`, configuration(token));
     return response.data;
 }

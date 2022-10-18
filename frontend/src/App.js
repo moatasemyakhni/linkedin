@@ -11,6 +11,7 @@ import CompanySignup from './components/companies/CompanySignup';
 import CompanyLanding from './components/companies/CompanyLanding';
 import UserProfile from './components/users/UserProfile'
 import CompanyProfile from './components/companies/CompanyProfile';
+import CompanyApplicants from './components/companies/CompanyApplicants';
 
 function App() {
 
@@ -68,6 +69,14 @@ function App() {
           <>
             <Navbar companies={'companies'} navLogo={shortNavLogo} />
             <CompanyProfile /> 
+          </>
+          }
+        />
+        
+        <Route path='/companies/applicants' element={
+          <>
+            <Navbar companies={'companies'} navLogo={shortNavLogo} />
+            <CompanyApplicants /> 
           </>
           }
         />
