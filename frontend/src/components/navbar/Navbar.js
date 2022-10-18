@@ -115,8 +115,7 @@ const Navbar = ({navLogo, at_form, users, companies}) => {
 
             <div className='flex gap-3 items-center'>
             
-                <Link to={'/companies'}><img src={homeIcon} className="w-8 cursor-pointer
-                " alt='home' /> </Link>
+                <Link to={'/companies'}><p>View Applicants</p> </Link>
             
                 <Link to={'/companies/profile'}><img src={`${companyProfile}`} className="w-8 h-11 rounded-1/2 object-fill cursor-pointer" alt='company profile'/></Link>
             </div>
