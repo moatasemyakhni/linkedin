@@ -54,10 +54,10 @@ export const unFollow = async (data, token) => {
     return response.data;
 }
 
-export const getUnfollowedCompanies = async (data, token) => {
-    const response = await usersApi.get('/company', {
-        "user_id": data.user_id,
-    }, configuration(token));
+export const getUnfollowedCompanies = async (data) => {
+    const response = await usersApi.post('/company', {
+        user_id: data.user_id,
+    });
 
     return response.data;
 }
