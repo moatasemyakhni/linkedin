@@ -6,7 +6,7 @@ const router = Router();
 
 router.post('/', companyAuthMiddleware, createPost);
 router.patch('/apply_for_job', userAuthMiddleware, applyToPost);
-router.get('/', companyAuthMiddleware, getApplicants);
-router.get('/:search', searchForJobOffer);
+router.get('/:id', companyAuthMiddleware, getApplicants);
+router.get('/jobs/:search', searchForJobOffer);
 router.post('/is_applied', userAuthMiddleware, isUserApplied);
 module.exports = router;

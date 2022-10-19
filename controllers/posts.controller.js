@@ -37,7 +37,7 @@ const applyToPost = async (req, res) => {
 }
 
 const getApplicants = async (req, res) => {
-    const company_id = req.body.company_id;
+    const company_id = req.params.id;
     try {
         const post = await Post
         .find({'company_id': company_id})

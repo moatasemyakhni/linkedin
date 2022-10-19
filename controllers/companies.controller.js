@@ -2,7 +2,7 @@ const Company = require('../models/Company');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const fs = require('fs');
 const user_type = 'company';
 
 const createToken = (company) => {
@@ -104,10 +104,11 @@ const companyInfo = async (req, res) => {
 const updateLogo = async (req, res) => {
     const company_id = req.body._id;
     //in base64
-    const newProfile = req.body.profile;
+    const newLogo = req.body.logo;
     try {
         const company = await Company.findById(company_id);
-        company.logo = base64ToImageWithPath(company_id, company.name, newProfile);
+        company.logo = 
+        base64ToImageWithPath(company_id, company.name, newLogo);
         company.save();
         res.send(company);
     }catch(err) {
